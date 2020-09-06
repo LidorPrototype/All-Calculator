@@ -243,6 +243,32 @@ class _Main extends State<Main> {
 
 class _HomePage extends State<HomePage> {
     final textControllerIndex = TextEditingController();
+    AnimationController containerAnimationController;
+    double scaleFactor = 2;
+    
+    @override
+    void initState() {
+        super.initState();
+        containerAnimationController = AnimationController(
+        vsync: this,
+        duration: Duration(seconds: 2),
+        );
+        containerAnimationController.forward();
+        containerAnimationController.addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+            containerAnimationController.reverse();
+        }
+        if(status == AnimationStatus.dismissed){
+            containerAnimationController.forward();
+        }
+        });
+    }
+
+    @override
+    void dispose() {
+        containerAnimationController.dispose();
+        super.dispose();
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -333,7 +359,24 @@ class _HomePage extends State<HomePage> {
                         this.widget.callback();
                     },
                     color: Colors.transparent,
-                    child: !isDrawerOpen ? openDrawer() : closeDrawer(),
+                    child: !isDrawerOpen ?
+                            Text(
+                              'Want to make a donation?',
+                              style: TextStyle(color: Colors.black, fontSize: 15),
+                            )
+                          : AnimatedBuilder(
+                              animation: containerAnimationController.view,
+                              builder: (context, child){
+                                return Transform.scale(
+                                  scale: containerAnimationController.value * 2,
+                                  child: child,
+                                );
+                              },
+                              child: Text(
+                                  'Get Back Here!',
+                                  style: TextStyle(color: Colors.black, fontSize: 15),
+                                ),
+                            ),
                     ),
                 ),
                 ),
@@ -342,33 +385,6 @@ class _HomePage extends State<HomePage> {
         ),
         ),
     );
-    }
-
-    Widget openDrawer(){
-    return TypewriterAnimatedTextKit(
-        onTap: (){
-        this.widget.callback();
-        },
-        speed: Duration(milliseconds: 500),
-        totalRepeatCount: 1,
-        repeatForever: false, //this will ignore [totalRepeatCount]
-        text: ["Want to make a donation?"],
-        textStyle: TextStyle(color: Colors.black, fontSize: 15),
-        displayFullTextOnTap: true,
-    ).createState().widget;
-    }
-    Widget closeDrawer(){
-    return TypewriterAnimatedTextKit(
-        onTap: (){
-        this.widget.callback();
-        },
-        speed: Duration(milliseconds: 500),
-        totalRepeatCount: 1,
-        repeatForever: false, //this will ignore [totalRepeatCount]
-        text: ["Get Back Here!"],
-        textStyle: TextStyle(color: Colors.black, fontSize: 15),
-        displayFullTextOnTap: true,
-    ).createState().widget;
     }
 
     void openHomeFlushBar() {

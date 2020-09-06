@@ -1,5 +1,7 @@
 All-Calculator
 
+    **application publication date: 22/09/2020**
+    publication date may delay according to google play work schedule because of the covid-19
 
 A flutter application made by Lidor E from Israel, developer name L-ES.
 

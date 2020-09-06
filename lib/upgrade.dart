@@ -103,6 +103,29 @@ class _UpsellScreenState extends State<UpsellScreen> {
         }
     }
 
+    String rateUsPrompt(){
+        AppReview.getAppID.then((String onValue) {
+        setState(() {
+            output = onValue;
+        });
+        print("AppID \t" + onValue);
+        });
+        AppReview.requestReview.then((String onValue) {
+        setState(() {
+            output = onValue;
+        });
+        print(onValue);
+        print("\n\n\n");
+        });
+    //    AppReview.writeReview.then((String onValue) {
+    //      setState(() {
+    //        output = onValue;
+    //      });
+    //      print(onValue);
+    //    });
+        return output;
+    }
+
     @override
     Widget build(BuildContext context) {
         if (widget.offerings != null) {
@@ -162,47 +185,175 @@ class _UpsellScreenState extends State<UpsellScreen> {
             }
         }
     }
-        return TopBarAgnosticNoIcon(
-        text: "Upgrade Screen",
-        style: kSendButtonTextStyle,
-        uniqueHeroTag: 'upgrade_screen1',
-        child: Scaffold(
-            backgroundColor: kColorPrimary,
-            body: Center(
-                child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+        
+    return TopBarAgnosticNoIcon(
+      style: kSendButtonTextStyle,
+      uniqueHeroTag: 'purchase_screen',
+      child: Scaffold(
+          backgroundColor: kColorPrimary,
+          body: Padding(
+            padding: const EdgeInsets.only(top: 12.0, left: 3.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                    Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Icon(
-                        Icons.error,
-                        color: kColorText,
-                        size: 44.0,
+                  Container(
+                    height: MediaQuery.of(context).size.height / 7.8,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      appData.isDonator ? 'You\'re a Donator!' : 'You\'re a normal user',
+                                      textAlign: TextAlign.center,
+                                      style: kSendButtonTextStyle,
+                                    ),
+                                  ), // User Status
+                                  SizedBox(
+                                    height: 6.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      'Every donation is highly appriciated,\nif you wish to give a donation please\nchoose one of the donations below:\n',
+                                      textAlign: TextAlign.center,
+                                      style: kSendButtonTextStyleSecondary,
+                                    ),
+                                  ), // Appreciation Text
+                                ],
+                              ), // Texts
+                              Padding(
+                                padding: const EdgeInsets.only(right: 20.0),
+                                child: new SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                    child: new GestureDetector(
+                                        onTap: () {
+                                                rateUsPrompt();
+                                        },
+                                        child: new Image(
+                                            image: AssetImage('assets/rate_us.png')
+                                        )
+                                    )
+                                ),
+                              ), // Rate Us
+                            ],
+                          ), // Temp Instructions
+                        ],
+                      ),
                     ),
+                  ), // Texts + Rating
+                  Container(
+                    margin: EdgeInsets.only(left: 14.0),
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Text('Donations are not available on this device and/or account.\n'
+                          'we are terribly sorry for inconvenience.',
+                        style: TextStyle(color: Colors.white70),),
+                  ), /// No Donations Available
+                  /* Restore Option, refer to the end of this file */
+                  SizedBox(
+                    height: 8.0,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2.2,
+                    child: ExpansionTile(
+                      title: Text(
+                        "Information",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      subtitle: Text('about the developer, the app and more',
+                        style: TextStyle(color: Colors.white60, fontSize: 10),
+                      ),
+                      children: <Widget>[
+                        ExpansionTile(
+                          title: Text(
+                            'Developer',
+                            style: kSendButtonTextStyleSecondary,
+                          ),
+                          children: <Widget>[
+                            Card(
+                              color: Color(0xff364263),
+                              child: ListTile(
+                                title: Text('L-ES', style: null,),
+                                subtitle: Text('Lidor Eliyahu', style: null,),
+                                onTap: (){
+                                  _launchURLWebsite('https://github.com/LidorPrototype');
+                                },
+                              ),
+                            ),
+                          ],
+                        ), // Developer
+                        ExpansionTile(
+                          title: Text(
+                            'All-Calculator',
+                            style: kSendButtonTextStyleSecondary,
+                          ),
+                          children: <Widget>[
+                            Card(
+                              color: Color(0xff364263),
+                              child: ListTile(
+                                title: Text('L-ES', style: null,),
+                                subtitle: Text(
+                                  'The All-Calculator application is a multi task calculator where you can '
+                                      'calculate everything you want as shown in the main page.',
+                                  style: TextStyle(color: Colors.white38, fontSize: 10),),
+                              ),
+                            ),
+                          ],
+                        ), // The Application
+                        ExpansionTile(
+                          title: Text(
+                            'Thanks to',
+                            style: kSendButtonTextStyleSecondary,
+                          ),
+                          children: <Widget>[
+                            Container(
+                              height: 100,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: Card(
+                                  color: Color(0xff364263),
+                                  child: ListTile(
+                                    title: Text('L-ES', style: null,),
+                                    subtitle: Text(// Thanks to:
+                                      // Dawn K
+                                      'Dawn Kadmiel for the design consult and helping with the '
+                                          'animations related to this page.\n'
+                                      // Elior C
+                                          '\nElior Cohen for his help with some of the problems we '
+                                          'encountered along the way of developing this application.',
+                                      style: TextStyle(color: Colors.white38, fontSize: 10),),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ), // Thanks
+                      ],
                     ),
-                    Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                        "There was an error. Please check that your device is allowed to make purchases and try again. Please contact us at xxx@xxx.com if the problem persists.",
-                        textAlign: TextAlign.center,
-                        style: kSendButtonTextStyle,
-                    ),
-                    ),
+                  ), // Extra Information
                 ],
-                ),
-            )),
-        );
+              ),
+            ),
+          )
+      ),
+    );
+
     }
 
-
-
-
-
-
-
-
-
-    
 }
 
 class PurchaseButton extends StatefulWidget {
@@ -227,6 +378,28 @@ class _PurchaseButtonState extends State<PurchaseButton> {
                 Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: RaisedButton(
+                    textColor: kColorText,
+                    padding: const EdgeInsets.all(0.0),
+                    child: Container(
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white, width: 2.0),
+                            borderRadius: BorderRadius.circular(30.0),
+                            gradient: LinearGradient(
+                            colors: <Color>[
+                                Color(0xFF364263),
+                                Color(0xFF485884),
+                                Color(0xFF5b6ea4),
+                            ],
+                            ),
+                        ),
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                            '${widget.package.product.title}\n${widget.package.product.priceString}',
+                            style: TextStyle(fontSize: 13),
+                            textAlign: TextAlign.center,
+                        ),
+                    ),
                     onPressed: () async {
                     try {
                         print('now trying to purchase');
@@ -251,22 +424,6 @@ class _PurchaseButtonState extends State<PurchaseButton> {
                     }
                     return UpgradeScreen();
                     },
-                    textColor: kColorText,
-                    padding: const EdgeInsets.all(0.0),
-                    child: Container(
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                        colors: <Color>[
-                            Color(0xFF0D47A1),
-                            Color(0xFF1976D2),
-                            Color(0xFF42A5F5),
-                        ],
-                        ),
-                    ),
-                    padding: const EdgeInsets.all(10.0),
-                    child: **sensitive area***
-                    ),
                 ),
                 ),
             ],

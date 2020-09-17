@@ -1,7 +1,6 @@
 All-Calculator
 
-    application publication date: 22/09/2020
-    publication date may delay according to google play work schedule because of the covid-19
+    Google Play Link: https://play.google.com/store/apps/details?id=com.lidorfirstflutter.tip_calculator_flutter
 
 A flutter application made by Lidor E from Israel, developer name L-ES.
 

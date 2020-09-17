@@ -1,6 +1,6 @@
 All-Calculator
 
-    Google Play Link: https://play.google.com/store/apps/details?id=com.lidorfirstflutter.tip_calculator_flutter
+Google Play Link: https://play.google.com/store/apps/details?id=com.lidorfirstflutter.tip_calculator_flutter
 
 A flutter application made by Lidor E from Israel, developer name L-ES.
 

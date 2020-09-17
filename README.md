@@ -1,4 +1,5 @@
-##All-Calculator
+***All-Calculator***
+
 
 Google Play Link: https://play.google.com/store/apps/details?id=com.lidorfirstflutter.tip_calculator_flutter
 

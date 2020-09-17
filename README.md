@@ -16,7 +16,7 @@ This application simulate a multi tasks calculator, the calculators that are wit
 
 
 
-for 06/09/2020 thats all the options, but we will continue to add more features and more types of calculators 
+for 17/09/2020 thats all the options, but we will continue to add more features and more types of calculators 
 and calculations as we go along the way.
 
 This is an open source application, feel free to use it for your own non commercial and non profit purposes, 
